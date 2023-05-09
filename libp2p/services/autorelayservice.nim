@@ -16,6 +16,8 @@ import chronos, chronicles, times, tables, sequtils, options
 import ../switch,
        ../protocols/connectivity/relay/[client, utils]
 
+import ./service
+
 logScope:
   topics = "libp2p autorelay"
 

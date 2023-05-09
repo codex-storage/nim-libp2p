@@ -15,6 +15,7 @@ else:
 import std/[options, deques, sequtils]
 import chronos, metrics
 import ../../../switch
+import ../../../services/service
 import ../../../wire
 import client
 from core import NetworkReachability, AutonatUnreachableError

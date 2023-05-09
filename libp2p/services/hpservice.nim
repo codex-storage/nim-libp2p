@@ -24,6 +24,7 @@ import ../protocols/connectivity/relay/relay
 import ../protocols/connectivity/autonat/service
 import ../protocols/connectivity/dcutr/[client, server]
 
+import ./service
 
 logScope:
   topics = "libp2p hpservice"

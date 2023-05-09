@@ -45,9 +45,11 @@ import stream/connection,
        peerstore,
        errors,
        utility,
-       dialer
+       dialer,
+       services/service,
+       types
 
-export connmanager, upgrade, dialer, peerstore
+export connmanager, upgrade, dialer, peerstore, types
 
 logScope:
   topics = "libp2p switch"
@@ -60,40 +62,6 @@ logScope:
 
 const
   ConcurrentUpgrades* = 4
-
-type
-    Switch* {.public.} = ref object of Dial
-      peerInfo*: PeerInfo
-      connManager*: ConnManager
-      transports*: seq[Transport]
-      ms*: MultistreamSelect
-      acceptFuts: seq[Future[void]]
-      dialer*: Dial
-      peerStore*: PeerStore
-      nameResolver*: NameResolver
-      started: bool
-      services*: seq[Service]
-
-    Service* = ref object of RootObj
-      inUse: bool
-
-
-method setup*(self: Service, switch: Switch): Future[bool] {.base, async, gcsafe.} =
-  if self.inUse:
-    warn "service setup has already been called"
-    return false
-  self.inUse = true
-  return true
-
-method run*(self: Service, switch: Switch) {.base, async, gcsafe.} =
-  doAssert(false, "Not implemented!")
-
-method stop*(self: Service, switch: Switch): Future[bool] {.base, async, gcsafe.} =
-  if not self.inUse:
-    warn "service is already stopped"
-    return false
-  self.inUse = false
-  return true
 
 proc addConnEventHandler*(s: Switch,
                           handler: ConnEventHandler,

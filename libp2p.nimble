@@ -34,7 +34,7 @@ proc runTest(filename: string, verify: bool = true, sign: bool = true,
   rmFile "tests/" & filename.toExe
 
 proc buildSample(filename: string, run = false, extraFlags = "") =
-  var excstr = "nim c --opt:speed --threads:on -d:debug --verbosity:0 --hints:off -p:. " & extraFlags
+  var excstr = "nim c --skipParentCfg --opt:speed --threads:on -d:debug --verbosity:0 --hints:off -p:. " & extraFlags
   excstr.add(" examples/" & filename)
   exec excstr
   if run:
